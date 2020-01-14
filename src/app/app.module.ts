@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import {
   EventsListComponent,
@@ -16,6 +17,9 @@ import { NavBarComponent } from './nav/navbar.component';
 import { ToastrService } from './common/toastr.service';
 import { appRoutes } from './routes';
 import { PageNotFoundComponent } from './errors/page-not-found.component';
+import { AuthService } from './user/auth.service';
+import { CreateSessionComponent } from './events/event-details/create-session.component';
+import { SessionsListComponent } from './events/event-details/sessions-list.component';
 
 @NgModule({
   declarations: [
@@ -25,9 +29,11 @@ import { PageNotFoundComponent } from './errors/page-not-found.component';
     NavBarComponent,
     EventDetailsComponent,
     CreateEventComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    CreateSessionComponent,
+    SessionsListComponent
   ],
-  imports: [BrowserModule, RouterModule.forRoot(appRoutes)],
+  imports: [BrowserModule, FormsModule, ReactiveFormsModule, RouterModule.forRoot(appRoutes)],
   providers: [
     EventService,
     ToastrService,
@@ -36,7 +42,8 @@ import { PageNotFoundComponent } from './errors/page-not-found.component';
       provide: 'canDeactivateCreateEvent',
       useValue: checkDirtyState
     },
-    EventsListResolverService
+    EventsListResolverService,
+    AuthService
   ],
   bootstrap: [EventsAppComponent]
 })
